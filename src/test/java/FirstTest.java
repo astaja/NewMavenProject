@@ -5,6 +5,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
+
 public class FirstTest {
     public static WebDriver driver;
 
@@ -13,19 +16,21 @@ public class FirstTest {
         driver.get("https://www.skelbiu.lt/");
         WebElement searchInput = driver.findElement(By.id("searchKeyword"));
         searchInput.sendKeys("meškiukas");                    // typing custom search keyword
-        driver.findElement(By.id("searchButton")).click();                        // click the searh icon in the search bar
+        driver.findElement(By.id("searchButton")).click();                // click the searh icon in the search bar
     }
     @Test
     public void openUrl2() {
         driver.get("https://www.skelbiu.lt/");
         WebElement searchInput = driver.findElement(By.id("searchKeyword"));
         searchInput.sendKeys("keptuvė");                    // typing custom search keyword
-        driver.findElement(By.id("searchButton")).click();                        // click the searh icon in the search bar
+        driver.findElement(By.id("searchButton")).click();              // click the searh icon in the search bar
     }
 
     @BeforeClass
     public void beforeClass () {
           driver = new ChromeDriver();
+          driver.manage().window().maximize(); // maximizes the opened window
+          driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5)); // waits until the page loads
 //        driver.get("https://www.skelbiu.lt/");
 //        driver.findElement(By.id("onetrust-accept-btn-handler")).click(); // agree to Cookies
         acceptCookies();
