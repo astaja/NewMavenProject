@@ -27,11 +27,11 @@ public class SauceDemo {
         WebElement searchCheckout = driver.findElement(By.id("checkout"));
         searchCheckout.click();
         WebElement searchName = driver.findElement(By.id("first-name"));
-        searchName.sendKeys(" ");
+        searchName.sendKeys("");
         WebElement searchLastName = driver.findElement(By.id("last-name"));
-        searchLastName.sendKeys(" ");
+        searchLastName.sendKeys("");
         WebElement searchZip = driver.findElement(By.id("postal-code"));
-        searchZip.sendKeys(" ");
+        searchZip.sendKeys("");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         WebElement searchContinue = driver.findElement(By.id("continue"));
         searchContinue.click();
@@ -82,6 +82,5 @@ public class SauceDemo {
     @AfterClass
     public void afterClass() {
            driver.quit();
-
     }
 }
