@@ -4,8 +4,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import java.time.Duration;
 
 public class SauceDemo {
@@ -19,9 +19,27 @@ public class SauceDemo {
         driver.findElement(By.id("login-button")).click();
     }
     @Test
-    public void buyItem() {  // Test 1
-        driver.get("https://www.saucedemo.com/inventory.html");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+    public void buyItem1() {  //  Negative
+        WebElement searchButton = driver.findElement(By.id("add-to-cart-sauce-labs-bolt-t-shirt"));
+        searchButton.click();
+        WebElement searchIcon = driver.findElement(By.id("shopping_cart_container"));
+        searchIcon.click();
+        WebElement searchCheckout = driver.findElement(By.id("checkout"));
+        searchCheckout.click();
+        WebElement searchName = driver.findElement(By.id("first-name"));
+        searchName.sendKeys(" ");
+        WebElement searchLastName = driver.findElement(By.id("last-name"));
+        searchLastName.sendKeys(" ");
+        WebElement searchZip = driver.findElement(By.id("postal-code"));
+        searchZip.sendKeys(" ");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        WebElement searchContinue = driver.findElement(By.id("continue"));
+        searchContinue.click();
+        WebElement searchFinish = driver.findElement(By.id("finish"));
+        searchFinish.click();
+    }
+    @Test
+    public void buyItem2() {  //  Positive
         WebElement searchButton = driver.findElement(By.id("add-to-cart-sauce-labs-bolt-t-shirt"));
         searchButton.click();
         WebElement searchIcon = driver.findElement(By.id("shopping_cart_container"));
@@ -45,16 +63,25 @@ public class SauceDemo {
         WebElement searchBack = driver.findElement(By.id("back-to-products"));
         searchBack.click();
     }
+    @BeforeMethod
+    public void beforeMethod() {
+        driver.get("https://www.saucedemo.com/inventory.html");
+    }
+    @BeforeMethod
+    public void afterMethod() {
+        driver.findElement(By.id("react-burger-menu-btn")).click();
+        driver.findElement(By.id("reset_sidebar_link")).click();
+        driver.findElement(By.id("react-burger-cross-btn")).click();
+    }
     @BeforeClass
     public void beforeClass() {
         driver = new ChromeDriver();
         driver.manage().window().maximize(); // maximizes the opened window
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2)); // waits until the page loads
         logIn();
     }
     @AfterClass
     public void afterClass() {
-        //   driver.quit();
+           driver.quit();
 
     }
 }
